@@ -1,0 +1,199 @@
+/* =========================
+   MAIN CONTAINER
+========================= */
+.attendance-report {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+}
+
+.attendance-report h2 {
+  text-align: center;
+  font-size: 26px;
+  margin-bottom: 30px;
+  color: #2c3e50;
+}
+
+/* =========================
+   FILTER CARD
+========================= */
+.report-filters {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.filter-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.filter-row label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #374151;
+}
+
+.filter-row select,
+.filter-row input {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+}
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+.filter-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.btn-primary,
+.btn-secondary {
+  height: 40px;
+  padding: 0 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.btn-primary {
+  background-color: #4CAF50;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #43a047;
+}
+
+.btn-secondary {
+  background-color: #0d6efd;
+  color: #ffffff;
+}
+
+.btn-secondary:hover {
+  background-color: #0b5ed7;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================
+   REPORT HEADER
+========================= */
+.report-title {
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+/* =========================
+   TABLE WRAPPER
+========================= */
+.table-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+/* =========================
+   ATTENDANCE TABLE
+========================= */
+.attendance-table {
+  width: 100%;
+  max-width: 1000px;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.attendance-table thead {
+  background: #f8f9fa;
+}
+
+.attendance-table th {
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 2px solid #e5e7eb;
+  color: #2c3e50;
+}
+
+.attendance-table td {
+  padding: 12px;
+  font-size: 14px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #374151;
+}
+
+.attendance-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* =========================
+   STATUS COLORS
+========================= */
+.good {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.warning {
+  color: #f39c12;
+  font-weight: 600;
+}
+
+.danger {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .filter-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .attendance-table {
+    font-size: 12px;
+  }
+
+  .attendance-table th,
+  .attendance-table td {
+    padding: 8px;
+  }
+}
+
+/* =========================
+   PRINT MODE
+========================= */
+@media print {
+  .report-filters,
+  .filter-actions {
+    display: none;
+  }
+
+  .attendance-report {
+    padding: 0;
+  }
+}
