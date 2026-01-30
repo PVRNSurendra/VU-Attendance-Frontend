@@ -121,12 +121,25 @@
 }
 
 .camera-video-preview {
-  width: 100%;
+  /* width: 100%;
   height: auto;
   display: block;
   background: #000;
   border-radius: 8px;
-  transform: scaleX(-1); /* Mirror effect */
+  transform: scaleX(-1); Mirror effect */
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Front camera (selfie) */
+.camera-video-preview.mirror {
+  transform: scaleX(-1);
+}
+
+/* Back camera (real-world view) */
+.camera-video-preview.no-mirror {
+  transform: scaleX(1);
 }
 
 /* Capture Counter Badge */
@@ -750,12 +763,9 @@
   .camera-modal-body {
     padding: 10px;
     min-height: 300px;
-  }
+    }
 
-  .camera-video-preview {
-    border-radius: 4px;
-  }
-
+    
   .capture-counter {
     font-size: 0.9rem;
     padding: 8px 15px;
@@ -774,4 +784,9 @@
     padding: 12px;
     font-size: 1rem;
   }
+}
+
+.btn-camera.switch {
+  background: #2196f3;
+  color: white;
 }

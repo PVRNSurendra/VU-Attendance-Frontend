@@ -431,6 +431,7 @@ function MarkAttendance() {
   const [processing, setProcessing] = useState(false);
   const [recognitionDone, setRecognitionDone] = useState(false);
   const [recognitionResult, setRecognitionResult] = useState(null);
+  const [cameraFacingMode, setCameraFacingMode] = useState('user'); 
 
   const fetchSubjects = useCallback(async () => {
     setLoadingSubjects(true);
@@ -499,10 +500,18 @@ function MarkAttendance() {
   }, [formData.department, formData.section, formData.year, fetchSubjects, fetchStudents]);
 
   useEffect(() => {
+    if (cameraActive) {
+      startCamera();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cameraFacingMode]);
+
+  useEffect(() => {
     return () => {
       stopCamera();
     };
   }, []);
+
 
   const handleChange = (e) => {
     setFormData({
@@ -514,41 +523,45 @@ function MarkAttendance() {
   // Camera functions
   const startCamera = async () => {
     try {
-      // Show modal immediately
       setCameraActive(true);
-      
+
+      // Stop existing stream
+      if (videoRef.current?.srcObject) {
+        videoRef.current.srcObject.getTracks().forEach(t => t.stop());
+      }
+
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { 
+        video: {
+          facingMode: cameraFacingMode, // user | environment
           width: { ideal: 1280 },
-          height: { ideal: 720 },
-          facingMode: 'user'
+          height: { ideal: 720 }
         }
       });
 
-      if (!videoRef.current) {
-        setCameraActive(false);
-        return;
-      }
+      const video = videoRef.current;
+      if (!video) return;
 
-      videoRef.current.srcObject = stream;
+      video.srcObject = stream;
 
-      // Wait for video metadata to load, then play
-      videoRef.current.onloadedmetadata = () => {
-        videoRef.current.play().then(() => {
-          toast.success('Camera started');
-        }).catch(err => {
-          console.error('Video play error:', err);
-          toast.error('Failed to start camera preview');
-          stopCamera();
-        });
+      video.onloadedmetadata = () => {
+        video.play();
+
+        // 🔥 FORCE MIRROR BEHAVIOR (THIS IS THE FIX)
+        if (cameraFacingMode === 'user') {
+          video.style.transform = 'scaleX(-1)';
+        } else {
+          video.style.transform = 'scaleX(1)';
+        }
       };
 
     } catch (err) {
       console.error('Camera error:', err);
-      toast.error('Failed to access camera. Please check permissions.');
+      toast.error('Failed to access camera');
       setCameraActive(false);
     }
   };
+
+
 
   const stopCamera = () => {
     if (videoRef.current && videoRef.current.srcObject) {
@@ -963,6 +976,19 @@ function MarkAttendance() {
                     >
                       📸 Capture Image
                     </button>
+
+                     <button
+                        type="button" 
+                        className="btn-camera switch"
+                        onClick={() => {
+                          setCameraFacingMode(prev =>
+                            prev === 'user' ? 'environment' : 'user'
+                          );
+                        }}
+                      >
+                        🔄 Switch Camera
+                      </button>
+
                     <button
                       type="button"
                       className="btn-camera stop"
