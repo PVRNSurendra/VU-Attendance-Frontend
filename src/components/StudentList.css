@@ -30,6 +30,38 @@
   overflow: hidden;
 } */
 
+/* .student-list {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.student-list h2 {
+  color: #2c3e50;
+  margin-bottom: 30px;
+  font-size: 28px;
+}
+
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.students-table {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+} */
+
 /* StudentList.css - Clean Professional Design */
 
 .student-list {
@@ -438,4 +470,90 @@
 *:focus-visible {
   outline: 2px solid #4CAF50;
   outline-offset: 2px;
+}
+
+/* ================= MOBILE ENHANCEMENT ================= */
+
+/* Convert table into cards on very small screens */
+@media (max-width: 600px) {
+
+  .students-table table,
+  .students-table thead,
+  .students-table tbody,
+  .students-table th,
+  .students-table td,
+  .students-table tr {
+    display: block;
+    width: 100%;
+  }
+
+  .students-table thead {
+    display: none; /* hide headers */
+  }
+
+  .students-table tbody tr {
+    background: #ffffff;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .students-table td {
+    border: none;
+    padding: 8px 0;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* Label before each value */
+  .students-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #555;
+  }
+
+  .btn-delete {
+    width: 100%;
+    margin-top: 8px;
+  }
+}
+
+/* Better mobile spacing */
+@media (max-width: 768px) {
+  .filters-section {
+    padding: 16px;
+  }
+
+  .btn-clear-filters,
+  .btn-secondary {
+    width: 100%;
+  }
+
+  .search-bar input {
+    font-size: 16px; /* prevent zoom on mobile */
+  }
+}
+
+/* Improve touch targets */
+button,
+select,
+input {
+  min-height: 44px; /* mobile usability */
+}
+
+/* Improve scrolling experience */
+.students-table {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Optional: smoother table scroll */
+.students-table::-webkit-scrollbar {
+  height: 6px;
+}
+
+.students-table::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
 }
